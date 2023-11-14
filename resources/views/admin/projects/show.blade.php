@@ -34,6 +34,22 @@
 
 
                 </div>
+                <p><strong>Technologies used:</strong></p>
+
+                <div class="d-flex">
+                    <ul class="d-flex gap-2 list-unstyled">
+                        @forelse ($project->technologies as $technology)
+                        <li class="badge bg-success">
+                            <i class="fa-solid fa-code"></i> {{ $technology->name }}
+                        </li>
+                        @empty
+                        <li class="badge bg-secondary"><i class="fa-regular fa-file"></i> None/Others</li>
+                        @endforelse
+                    </ul>
+                </div>
+
+                <p><i class="fa-brands fa-github"></i> {{ $project->github }}</p>
+                <p><i class="fa-solid fa-link"></i> {{ $project->link }}</p>
             </div>
             <a type="button" class="btn btn-primary mt-1" href="{{ route('admin.projects.edit', $project->slug) }}">Edit</a>
             @include('partials.delete')
