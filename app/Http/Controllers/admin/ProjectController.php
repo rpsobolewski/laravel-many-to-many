@@ -121,7 +121,7 @@ class ProjectController extends Controller
             dd($project);
             Storage::delete($project->thumb);
         }
-
+        $project->technologies()->detach();
 
         $project->delete();
 
