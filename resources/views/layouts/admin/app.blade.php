@@ -30,8 +30,8 @@
                 <div class="container-fluid">
 
                     <div class="flex-grow-0 col-md-3 col-lg-2 me-0">
-                        <a class="navbar-brand" href="/">BoolPress</a>
-                        <p class="text-light"> (layouts/admin/app)</p>
+                        <a class="navbar-brand" href="/">Project Portfolio</a>
+
                     </div>
 
 
@@ -39,20 +39,18 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search">
 
                     <div class="collapse navbar-collapse justify-content-end flex-grow-0" id="navbarNavDarkDropdown">
 
                         <ul class="navbar-nav">
 
                             <li class="nav-item dropdown dropstart">
-                                <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }}
                                 </button>
 
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" href="{{ url('admin') }}">{{ __('Dashboard') }}</a>
-                                    </li>
+
                                     <li><a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
                                     </li>
                                     <li>

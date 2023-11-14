@@ -52,7 +52,7 @@
 
                     <td class="align-middle">
                         {{-- I PROGETTI SONO COLLEGATI TRAMITE LO SLUG --}}
-                        <a type="button" class="btn btn-primary" href="{{ route('admin.projects.show', $project->slug) }}">Details</a>
+                        <a type="button" class="btn btn-primary mb-1" href="{{ route('admin.projects.show', $project->slug) }}">Details</a>
                         <a type="button" class="btn btn-primary" href="{{ route('admin.projects.edit', $project->slug) }}">Edit</a>
                         @include('partials.delete')
 

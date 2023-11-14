@@ -118,8 +118,8 @@ class ProjectController extends Controller
     {
 
         if (Storage::exists($project->thumb)) {
-            dd($project);
-            Storage::delete($project->thumb);
+
+            Storage::delete('projectImages', $project->thumb);
         }
         $project->technologies()->detach();
 
