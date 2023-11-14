@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container">
-    <h1>ADMIN/PROJECTS/EDIT.BLADE</h1>
     <h2 class="fs-4 text-secondary my-4">
         {{ __('Project Edit Page for') }} {{ Auth::user()->name }}.
     </h2>
@@ -42,6 +41,42 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="technologies" class="form-label"><strong>Technologies Used</strong></label>
+                    <select multiple class="form-select form-select" name="technologies[]" id="technologies">
+                        <option disabled>Select Technologies used</option>
+                        @foreach ($technologies as $technology)
+                        @if ($errors->any())
+                        <option value="{{ $technology->id }}" {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}>
+                            {{ $technology->name }}
+                        </option>
+                        @else
+                        <option value="{{ $technology->id }}" {{-- SE $project->technologies CONTIENE LA TECHNOLOGY CICLATA LA SELEZIONA --}} {{ $project->technologies->contains($technology) ? 'selected' : '' }}>
+                            {{ $technology->name }}
+                        </option>
+                        @endif
+                        @endforeach
+                    </select>
+                    @error('technologies')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label for="description" class="form-label"><strong>Description</strong></label>
+
+                    <input type="text" class="form-control" name="description" id="description" aria-describedby="helpTitle" value="{{ old('description') ? old('description') : $project->description }}">
+
+                    @error('description')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+
+                </div>
+
+
+
+                <div class="mb-3">
                     <label for="type_id" class="form-label">Type</label>
                     <select class="form-select form-select @error('type_id') is-invalid @enderror" name="type_id" id="type_id">
                         <option selected>Select a Type</option>
@@ -56,18 +91,6 @@
                     @error('type_id')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
-                </div>
-
-                <div class="mb-3">
-
-                    <label for="description" class="form-label"><strong>Description</strong></label>
-
-                    <input type="text" class="form-control" name="description" id="description" aria-describedby="helpTitle" value="{{ old('description') ? old('description') : $project->description }}">
-
-                    @error('description')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-
                 </div>
 
                 <div class="mb-3">

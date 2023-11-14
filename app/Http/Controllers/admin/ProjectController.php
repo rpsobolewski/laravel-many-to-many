@@ -1,15 +1,18 @@
 <?php
 
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\Type;
-use App\Models\Technology;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Technology;
+use App\Models\Type;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
 
 use function PHPUnit\Framework\isNull;
 
@@ -51,7 +54,11 @@ class ProjectController extends Controller
             $valData['thumb'] = $file_path;
         }
 
+
+
         $newProject = Project::create($valData);
+
+        $newProject->technologies()->attach($request->technologies);
 
         return to_route('admin.projects.index')->with('status', 'Well Done, New Entry Added Succeffully');
     }
@@ -71,8 +78,9 @@ class ProjectController extends Controller
 
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.edit', compact('project'), compact('types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -95,6 +103,9 @@ class ProjectController extends Controller
 
             $valData['thumb'] = $path;
         }
+        if ($request->has('technologies')) {
+            $project->technologies()->sync($request->technologies);
+        }
 
         $project->update($valData);
         return to_route('admin.projects.show', $project->slug)->with('status', 'Well Done, Element Edited Succeffully');
@@ -105,8 +116,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        /*   dump(str_replace('http://127.0.0.1:8000', '', $project->thumb));
-        dd(Storage::disk('public')->fileExists(str_replace('http://127.0.0.1:8000', '', $project->thumb))); */
+
         if (Storage::exists($project->thumb)) {
             dd($project);
             Storage::delete($project->thumb);
